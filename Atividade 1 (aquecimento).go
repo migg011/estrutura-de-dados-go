@@ -1,8 +1,13 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
 	"math"
+	"os"
+	"sort"
+	"strings"
+	"unicode"
 )
 
 func questao1() {
@@ -110,7 +115,7 @@ func questao4() {
 	case 2:
 		resultado = 447.593 + (9.247 * peso) + (3.098 * altura) - (4.330 * idade)
 	}
-	fmt.Printf("sua TMB é: %.2f", resultado)
+	fmt.Printf("sua TMB é: %.2f\n", resultado)
 }
 
 func questao6() {
@@ -176,8 +181,20 @@ func questao8() {
 }
 
 func questao9() {
+	const n = 20
+	a, b := 0, 1
 
+	for i := 0; i < n; i++ {
+		fmt.Print(a)
+		if i < n-1 {
+			fmt.Print(" ")
+		}
+		a, b = b, a+b
+	}
+	fmt.Println()
 }
+
+// muito dificil  :/
 
 func questao10() {
 
@@ -210,6 +227,316 @@ func questao10() {
 	fmt.Println("Numero reverso:", reverso)
 }
 
+func questao11() {
+
+	in := bufio.NewReader(os.Stdin)
+
+	fmt.Print("Digite uma palavra ou frase: ")
+	texto, _ := in.ReadString('\n')
+	texto = strings.TrimSpace(texto)
+	texto = strings.ToLower(texto)
+
+	var b strings.Builder
+	for _, r := range texto {
+		if unicode.IsLetter(r) || unicode.IsDigit(r) {
+			b.WriteRune(r)
+		}
+	}
+
+	runes := []rune(b.String())
+	i, j := 0, len(runes)-1
+	for i < j {
+		if runes[i] != runes[j] {
+			fmt.Println("Nao é palindromo.")
+			return
+		}
+		i++
+		j--
+	}
+
+	fmt.Println("É palindromo.")
+}
+
+func questao12() {
+
+	numeros := [10]int{}
+	pares := []int{}
+	impares := []int{}
+
+	fmt.Println("Digite 10 numeros a seguir")
+
+	for i := 0; i < 10; i++ {
+		fmt.Printf("Digite o %d numero: ", i+1)
+		fmt.Scanln(&numeros[i])
+	}
+
+	for _, num := range numeros {
+		if num%2 == 0 {
+			pares = append(pares, num)
+		} else {
+			impares = append(impares, num)
+		}
+	}
+
+	sort.Ints(pares)
+	sort.Ints(impares)
+
+	fmt.Println(numeros)
+	fmt.Println(pares)
+	fmt.Println(impares)
+
+}
+
+func questao13() {
+
+	vetor := []string{}
+	numericos := []string{}
+	naoNumericos := []string{}
+	var entrada string
+
+	fmt.Println("digite -1 para encerrar")
+
+	for {
+		fmt.Print("adicione: ")
+		fmt.Scanln(&entrada)
+
+		if entrada == "-1" {
+			break
+		} else {
+			vetor = append(vetor, entrada)
+		}
+	}
+
+	for i := 0; i < len(vetor); i++ {
+
+		s := vetor[i]
+
+		if len(s) == 1 && s[0] >= '1' && s[0] <= '9' {
+			numericos = append(numericos, s)
+		} else {
+			naoNumericos = append(naoNumericos, s)
+		}
+	}
+
+	fmt.Println("numericos: ", numericos)
+	fmt.Println("nao numerico: ", naoNumericos)
+
+}
+
+func questao14() {
+
+	var palavra string
+
+	fmt.Println("digite sua palavra: ")
+	fmt.Scanln(&palavra)
+	palavra = strings.ToLower(palavra)
+
+	r := []rune(palavra)
+	j := len(r) - 1
+
+	for i := 0; i < j; {
+		if r[i] != r[j] {
+			fmt.Println("sua palavra NAO é um palindromo! ")
+			return
+		} else {
+			i++
+			j--
+		}
+	}
+
+	fmt.Println("é palindromo! ")
+
+}
+
+func questao15() {
+	lista := []int{1, 2, 2, 3, 1, 4, 4, 5}
+
+	seen := make(map[int]struct{})
+	unicos := []int{}
+
+	for _, v := range lista {
+		if _, ok := seen[v]; !ok {
+			seen[v] = struct{}{}
+			unicos = append(unicos, v)
+		}
+	}
+
+	fmt.Println("lista original: ", lista)
+	fmt.Println("elementos unicos: ", unicos)
+}
+
+func questao16() {
+	lista1 := []int{1, 3, 5, 7}
+	lista2 := []int{2, 4, 6}
+
+	intercalada := []int{}
+	i, j := 0, 0
+
+	for i < len(lista1) || j < len(lista2) {
+		if i < len(lista1) {
+			intercalada = append(intercalada, lista1[i])
+			i++
+		}
+		if j < len(lista2) {
+			intercalada = append(intercalada, lista2[j])
+			j++
+		}
+	}
+
+	fmt.Println("Lista 1:", lista1)
+	fmt.Println("Lista 2:", lista2)
+	fmt.Println("Intercalada:", intercalada)
+}
+
+func questao17() {
+	s1 := "Hello, "
+	s2 := "world!"
+
+	concatenada := appendStrings(s1, s2)
+	fmt.Println(concatenada)
+
+}
+func appendStrings(a, b string) string {
+	return a + b
+}
+
+func maior_numero(lista []int) int {
+	maior := lista[0]
+	for _, v := range lista[1:] {
+		if v > maior {
+			maior = v
+		}
+	}
+	return maior
+}
+
+func menor_numero(lista []int) int {
+	menor := lista[0]
+	for _, v := range lista[1:] {
+		if v < menor {
+			menor = v
+		}
+	}
+	return menor
+}
+
+func questao18() {
+	lista := []int{7, 2, 10, -3, 5}
+	fmt.Println("Lista:", lista)
+	fmt.Println("Maior:", maior_numero(lista))
+	fmt.Println("Menor:", menor_numero(lista))
+}
+
+func conta_vogais(palavra string) int {
+	palavra = strings.ToLower(palavra)
+
+	total := 0
+	for _, r := range palavra {
+		switch r {
+		case 'a', 'e', 'i', 'o', 'u':
+			total++
+		}
+	}
+	return total
+}
+
+func questao19() {
+	var palavra string
+	fmt.Print("Digite uma palavra: ")
+	fmt.Scanln(&palavra)
+
+	fmt.Println("Total de vogais:", conta_vogais(palavra))
+}
+
+func inverte_lista(lista []int) []int {
+	invertida := make([]int, len(lista))
+	for i := 0; i < len(lista); i++ {
+		invertida[i] = lista[len(lista)-1-i]
+	}
+	return invertida
+}
+
+func questao20() {
+	lista := []int{1, 2, 3, 4, 5}
+	fmt.Println("Original:", lista)
+	fmt.Println("Invertida:", inverte_lista(lista))
+}
+
+func somaLista(lista []float64) float64 {
+	soma := 0.0
+	for _, v := range lista {
+		soma += v
+	}
+	return soma
+}
+
+func mediaLista(lista []float64) float64 {
+	return somaLista(lista) / float64(len(lista))
+}
+
+func contaParImpar(lista []float64) (pares, impares int) {
+	for _, v := range lista {
+		if int(v)%2 == 0 {
+			pares++
+		} else {
+			impares++
+		}
+	}
+	return
+}
+
+func maiorMenor(lista []float64) (maior, menor float64) {
+	maior = lista[0]
+	menor = lista[0]
+	for _, v := range lista[1:] {
+		if v > maior {
+			maior = v
+		}
+		if v < menor {
+			menor = v
+		}
+	}
+	return
+}
+
+func maisProximoDaMedia(lista []float64, media float64) float64 {
+	maisProximo := lista[0]
+	menorDist := math.Abs(lista[0] - media)
+
+	for _, v := range lista[1:] {
+		dist := math.Abs(v - media)
+		if dist < menorDist {
+			menorDist = dist
+			maisProximo = v
+		}
+	}
+	return maisProximo
+}
+
+func estatisticas_lista(lista []float64) {
+	if len(lista) == 0 {
+		fmt.Println("Lista vazia.")
+		return
+	}
+
+	soma := somaLista(lista)
+	media := mediaLista(lista)
+	pares, impares := contaParImpar(lista)
+	maior, menor := maiorMenor(lista)
+	prox := maisProximoDaMedia(lista, media)
+
+	fmt.Printf("Soma: %.2f\n", soma)
+	fmt.Printf("Média: %.2f\n", media)
+	fmt.Printf("Pares: %d | Ímpares: %d\n", pares, impares)
+	fmt.Printf("Maior: %.2f | Menor: %.2f\n", maior, menor)
+	fmt.Printf("Mais próximo da média: %.2f\n", prox)
+}
+
+func questao21() {
+	lista := []float64{1, 2, 3, 4, 5, 6}
+	estatisticas_lista(lista)
+}
+
 func main() {
-	questao10()
+	questao9()
 }
