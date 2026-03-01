@@ -130,7 +130,7 @@ func questao6() {
 		return
 	}
 
-	for i := 2; i*i <= numero; i++ { //ele testa os divisores até a raiz do numero digitado
+	for i := 2; i*i <= numero; i++ {
 		if numero%i == 0 {
 			fmt.Println("nao é primo")
 			return
@@ -383,14 +383,14 @@ func questao16() {
 		}
 	}
 
-	fmt.Println("Lista 1:", lista1)
-	fmt.Println("Lista 2:", lista2)
-	fmt.Println("Intercalada:", intercalada)
+	fmt.Println("lista 1:", lista1)
+	fmt.Println("lista 2:", lista2)
+	fmt.Println("intercalada:", intercalada)
 }
 
 func questao17() {
-	s1 := "Hello, "
-	s2 := "world!"
+	s1 := "goland, "
+	s2 := "python"
 
 	concatenada := appendStrings(s1, s2)
 	fmt.Println(concatenada)
@@ -422,9 +422,9 @@ func menor_numero(lista []int) int {
 
 func questao18() {
 	lista := []int{7, 2, 10, -3, 5}
-	fmt.Println("Lista:", lista)
-	fmt.Println("Maior:", maior_numero(lista))
-	fmt.Println("Menor:", menor_numero(lista))
+	fmt.Println("lista:", lista)
+	fmt.Println("maior:", maior_numero(lista))
+	fmt.Println("menor:", menor_numero(lista))
 }
 
 func conta_vogais(palavra string) int {
@@ -442,10 +442,10 @@ func conta_vogais(palavra string) int {
 
 func questao19() {
 	var palavra string
-	fmt.Print("Digite uma palavra: ")
+	fmt.Print("digite uma palavra: ")
 	fmt.Scanln(&palavra)
 
-	fmt.Println("Total de vogais:", conta_vogais(palavra))
+	fmt.Println("total de vogais:", conta_vogais(palavra))
 }
 
 func inverte_lista(lista []int) []int {
@@ -458,8 +458,8 @@ func inverte_lista(lista []int) []int {
 
 func questao20() {
 	lista := []int{1, 2, 3, 4, 5}
-	fmt.Println("Original:", lista)
-	fmt.Println("Invertida:", inverte_lista(lista))
+	fmt.Println("lista original:", lista)
+	fmt.Println("lista invertida:", inverte_lista(lista))
 }
 
 func somaLista(lista []float64) float64 {
@@ -515,7 +515,7 @@ func maisProximoDaMedia(lista []float64, media float64) float64 {
 
 func estatisticas_lista(lista []float64) {
 	if len(lista) == 0 {
-		fmt.Println("Lista vazia.")
+		fmt.Println("lista vazia.")
 		return
 	}
 
@@ -523,13 +523,13 @@ func estatisticas_lista(lista []float64) {
 	media := mediaLista(lista)
 	pares, impares := contaParImpar(lista)
 	maior, menor := maiorMenor(lista)
-	prox := maisProximoDaMedia(lista, media)
+	proximo := maisProximoDaMedia(lista, media)
 
-	fmt.Printf("Soma: %.2f\n", soma)
-	fmt.Printf("Média: %.2f\n", media)
-	fmt.Printf("Pares: %d | Ímpares: %d\n", pares, impares)
-	fmt.Printf("Maior: %.2f | Menor: %.2f\n", maior, menor)
-	fmt.Printf("Mais próximo da média: %.2f\n", prox)
+	fmt.Printf("soma: %.2f\n", soma)
+	fmt.Printf("media: %.2f\n", media)
+	fmt.Printf("pares: %d , impares: %d\n", pares, impares)
+	fmt.Printf("maior: %.2f , menor: %.2f\n", maior, menor)
+	fmt.Printf("o mais proximo da media: %.2f\n", proximo)
 }
 
 func questao21() {
@@ -538,5 +538,5 @@ func questao21() {
 }
 
 func main() {
-	questao9()
+	questao21()
 }
