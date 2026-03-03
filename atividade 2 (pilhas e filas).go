@@ -1,13 +1,92 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
 	"math/rand"
 	"os"
+	"strconv"
+	"strings"
+	"time"
 )
 
 var lista []int
 
+//Joao
+func menuPilha() {
+
+	reader := bufio.NewReader(os.Stdin)
+
+	for {
+		fmt.Println("\n======= MENU PILHA =======")
+		fmt.Println("1) Push")
+		fmt.Println("2) Pop")
+		fmt.Println("3) Topo")
+		fmt.Println("4) Base")
+		fmt.Println("5) Mostrar pilha")
+		fmt.Println("-1) Voltar")
+
+		fmt.Print("Escolha: ")
+
+		texto, _ := reader.ReadString('\n')
+		texto = strings.TrimSpace(texto)
+		opcao, _ := strconv.Atoi(texto)
+
+		if opcao == -1 {
+			logga("MENU | VOLTAR | origem=PILHA | OK")
+			return
+		}
+
+		switch opcao {
+
+		case 1:
+			valor := rand.Intn(100)
+			lista = append(lista, valor)
+
+			fmt.Println("Pilha:", lista)
+			logga(fmt.Sprintf("PILHA | PUSH | valor=%d | OK", valor))
+
+		case 2:
+			if len(lista) == 0 {
+				fmt.Println("Pilha vazia")
+				break
+			}
+
+			valor := lista[len(lista)-1]
+			lista = lista[:len(lista)-1]
+
+			fmt.Println("Pilha:", lista)
+			logga(fmt.Sprintf("PILHA | POP | valor=%d | OK", valor))
+
+		case 3:
+			if len(lista) == 0 {
+				fmt.Println("Pilha vazia")
+				break
+			}
+
+			fmt.Println("Topo:", lista[len(lista)-1])
+			logga("PILHA | TOPO | OK")
+
+		case 4:
+			if len(lista) == 0 {
+				fmt.Println("Pilha vazia")
+				break
+			}
+
+			fmt.Println("Base:", lista[0])
+			logga("PILHA | BASE | OK")
+
+		case 5:
+			fmt.Println("Pilha completa:", lista)
+			logga("PILHA | MOSTRAR | OK")
+
+		default:
+			fmt.Println("Opção inválida")
+		}
+	}
+}
+
+//Antônio
 func subMenuLista() {
 	for {
 		var opcao int
@@ -57,37 +136,41 @@ func subMenuLista() {
 	}
 }
 
-func subMenuPilhas() {
-
-}
-
 func menuPrincipal() {
 
-	for {
-		var opcao int
+	var opcao int
+
+	for opcao != -1 {
 
 		fmt.Println("//1) Manipular Lista\n//2) Manipular Pilha\n//-1) Sair")
 		fmt.Scanln(&opcao)
 
 		switch opcao {
+
 		case 1:
 			logga("usuario escolheu manipular a lista")
 			subMenuLista()
 		case 2:
 			logga("usuario escolheu manipular a pilhas")
-			subMenuPilhas()
-		default:
+			menuPilha()
+		case -1:
 			logga("usuario escolheu sair do sistema")
-			fmt.Println("voce saiu do sistema")
+			fmt.Println("saindo do sistema...")
 			break
+		default:
+			logga("usuario escolheu uma opcao invalida")
+			fmt.Println("opcao invalida\n")
 		}
 	}
 }
 
 func logga(msg string) {
-	file, _ := os.OpenFile("log.txt", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
 
-	_, _ = file.WriteString("Timestamp: " + msg + "\n")
+	agora := time.Now()
+	timestamp := agora.Format("2006-01-02 15:04:05: ")
+
+	file, _ := os.OpenFile("log.txt", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+	_, _ = file.WriteString(timestamp + msg + "\n")
 }
 
 func main() {
