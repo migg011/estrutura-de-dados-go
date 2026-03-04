@@ -10,9 +10,9 @@ import (
 	"time"
 )
 
-var lista []int
+var slice []int
 
-//Joao
+// Joao
 func menuPilha() {
 
 	reader := bufio.NewReader(os.Stdin)
@@ -41,43 +41,43 @@ func menuPilha() {
 
 		case 1:
 			valor := rand.Intn(100)
-			lista = append(lista, valor)
+			slice = append(slice, valor)
 
-			fmt.Println("Pilha:", lista)
+			fmt.Println("Pilha:", slice)
 			logga(fmt.Sprintf("PILHA | PUSH | valor=%d | OK", valor))
 
 		case 2:
-			if len(lista) == 0 {
+			if len(slice) == 0 {
 				fmt.Println("Pilha vazia")
 				break
 			}
 
-			valor := lista[len(lista)-1]
-			lista = lista[:len(lista)-1]
+			valor := slice[len(slice)-1]
+			slice = slice[:len(slice)-1]
 
-			fmt.Println("Pilha:", lista)
+			fmt.Println("Pilha:", slice)
 			logga(fmt.Sprintf("PILHA | POP | valor=%d | OK", valor))
 
 		case 3:
-			if len(lista) == 0 {
+			if len(slice) == 0 {
 				fmt.Println("Pilha vazia")
 				break
 			}
 
-			fmt.Println("Topo:", lista[len(lista)-1])
+			fmt.Println("Topo:", slice[len(slice)-1])
 			logga("PILHA | TOPO | OK")
 
 		case 4:
-			if len(lista) == 0 {
+			if len(slice) == 0 {
 				fmt.Println("Pilha vazia")
 				break
 			}
 
-			fmt.Println("Base:", lista[0])
+			fmt.Println("Base:", slice[0])
 			logga("PILHA | BASE | OK")
 
 		case 5:
-			fmt.Println("Pilha completa:", lista)
+			fmt.Println("Pilha completa:", slice)
 			logga("PILHA | MOSTRAR | OK")
 
 		default:
@@ -86,51 +86,54 @@ func menuPilha() {
 	}
 }
 
-//Antônio
-func subMenuLista() {
+// Antônio
+func subMenuFila() {
 	for {
 		var opcao int
 
-		fmt.Println("1) Inserir elemento na lista (Número aleatório)\n2) Remover elemento da lista\n3) Mostrar a cabeça (primeiro elemento)\n4) Mostrar o rabo (último elemento)\n-1) Voltar ao menu principal")
+		fmt.Println("1) Inserir elemento na fila (Número aleatório)\n2) Remover elemento da fila\n3) Mostrar a cabeça (primeiro elemento)\n4) Mostrar o rabo (último elemento)\n5) Mostrar a pilha completa\n-1) Voltar ao menu principal")
 		fmt.Scanln(&opcao)
 
 		switch opcao {
 		case 1:
-			logga("usuario escolheu adicionar um numero aleatorio ")
-			lista = append(lista, rand.Intn(100))
-			fmt.Println("lista atualizada: ", lista, "\n")
+			logga("usuario escolheu adicionar um numero aleatorio na fila ")
+			slice = append(slice, rand.Intn(100))
+			fmt.Println("lista atualizada: ", slice, "\n")
 		case 2:
-			if len(lista) > 0 {
-				logga("usuario escolheu remover um elemento da lista ")
-				lista = lista[:len(lista)-1]
-				fmt.Println("lista atualizada: ", lista, "\n")
+			if len(slice) > 0 {
+				logga("usuario escolheu remover um elemento da fila ")
+				slice = slice[1:]
+				fmt.Println("lista atualizada: ", slice, "\n")
 			} else {
 				fmt.Println("a lista esta vazia\n")
 				continue
 			}
 		case 3:
-			if len(lista) > 0 {
-				logga("usuario escolheu mostrar o primeiro elemento da lista")
-				primeiro := lista[0]
-				fmt.Println("o primeiro elemento da lista é: ", primeiro, "\n")
+			if len(slice) > 0 {
+				logga("usuario escolheu mostrar o primeiro elemento da fila")
+				primeiro := slice[0]
+				fmt.Println("a cabeça da fila é: ", primeiro, "\n")
 			} else {
 				fmt.Println("a lista esta vazia\n")
 				continue
 			}
 		case 4:
-			if len(lista) > 0 {
-				logga("usuario escolheu mostrar o ultimo elemento da lista")
-				ultimo := lista[len(lista)-1]
-				fmt.Println("o ultimo elemento da lista é: ", ultimo, "\n")
+			if len(slice) > 0 {
+				logga("usuario escolheu mostrar o ultimo elemento da fila")
+				ultimo := slice[len(slice)-1]
+				fmt.Println("o rabo da fila é: ", ultimo, "\n")
 			} else {
 				fmt.Println("a lista esta vazia\n")
 				continue
 			}
+		case 5:
+			fmt.Println("Fila completa:", slice)
+			logga("FILA | MOSTRAR | OK")
 		case -1:
 			logga("usuario escolheu retornar ao menu principal")
 			return
 		default:
-			logga("usuario escolheu uma opcao invalida em menu de lista")
+			logga("usuario escolheu uma opcao invalida em menu de fila")
 			fmt.Println("opcao invalida")
 		}
 	}
@@ -142,14 +145,14 @@ func menuPrincipal() {
 
 	for opcao != -1 {
 
-		fmt.Println("//1) Manipular Lista\n//2) Manipular Pilha\n//-1) Sair")
+		fmt.Println("//1) Manipular Fila\n//2) Manipular Pilha\n//-1) Sair")
 		fmt.Scanln(&opcao)
 
 		switch opcao {
 
 		case 1:
-			logga("usuario escolheu manipular a lista")
-			subMenuLista()
+			logga("usuario escolheu manipular a fila")
+			subMenuFila()
 		case 2:
 			logga("usuario escolheu manipular a pilhas")
 			menuPilha()
