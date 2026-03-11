@@ -86,7 +86,7 @@ func QuantosDigitos(n int) int {
 //● Selection Sort: faz a comparação dos index vizinhos verificando o menor numero, assim fazendo a troca dos vizinhos (esquerda pra direita)
 //● Merge Sort: divide a lista em pequenos grupos, ordena separadamente e no final junta os grupos numa lista ordenada]
 
-//questao 5
+// questao 5
 func matrizIdentidade() [][]int {
 
 	matriz := [][]int{
