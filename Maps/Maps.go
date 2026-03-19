@@ -9,7 +9,7 @@ func main() {
 	fmt.Println(idades)
 
 	//exemplo 2
-	idades := make(map[string]int)
+	idades = make(map[string]int)
 	idades["ana"] = 26
 
 	idades1 := map[string]int{
